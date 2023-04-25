@@ -1,0 +1,44 @@
+version: '3'
+services:
+  php:
+    build:
+      context: .
+      dockerfile: _docker/app/Dockerfile
+    restart: always
+    volumes:
+      - ./:/var/www/office-mag
+    depends_on:
+      - db
+    links:
+      - db:db
+    container_name: php
+
+  nginx:
+    build:
+      context: .
+      dockerfile: _docker/nginx/Dockerfile
+    restart: always
+    volumes:
+      - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www/office-mag
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - php
+    container_name: nginx
+
+  db:
+    platform: linux/amd64
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db-data/:/var/lib/mysql
+    container_name: db
