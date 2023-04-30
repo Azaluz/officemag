@@ -11,6 +11,7 @@
 .gitconfig
 .env
 /db-data
+composer.lock
 
 #Убрал все неиспользуемые в задании файлы
 urlrewrite.php

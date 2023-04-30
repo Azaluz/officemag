@@ -1,0 +1,17 @@
+{
+  "name": "sk/officemag",
+  "description": "",
+  "authors": [
+    {
+      "name": "Sergey Konkov",
+      "email": "azaluz19@yandex.ru"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "OfficeMag\\": "php_interface/classes/"
+    }
+  },
+  "require": {
+  }
+}
