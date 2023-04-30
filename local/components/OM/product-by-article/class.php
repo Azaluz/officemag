@@ -48,7 +48,14 @@ class ProductByArticle extends CBitrixComponent implements Controllerable
      */
     public function configureActions(): array
     {
-        return [];
+        return [
+            'getProduct' => [
+                'prefilters' => []
+            ],
+            'addToBasket' => [
+                    'prefilters' => []
+            ]
+        ];
     }
 
     /**
