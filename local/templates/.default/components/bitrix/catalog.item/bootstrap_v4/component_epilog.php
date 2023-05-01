@@ -2,6 +2,9 @@
 
 /**
  * Стандартный компонент catalog.item без изменений
+ * добавил проверку на $_SESSION[$arParams['COMPARE_NAME']][$item['IBLOCK_ID']]['ITEMS']
+ * на строке 29
+ * без проверки у неавторизованного пользователя была ошибка тк список еще не создан
  */
 
 /**
@@ -23,7 +26,7 @@ if ($arParams['DISPLAY_COMPARE'])
 		{
 			foreach ($item['JS_OFFERS'] as $key => $offer)
 			{
-				if (array_key_exists($offer['ID'], $_SESSION[$arParams['COMPARE_NAME']][$item['IBLOCK_ID']]['ITEMS']))
+				if ($_SESSION[$arParams['COMPARE_NAME']][$item['IBLOCK_ID']]['ITEMS'] && array_key_exists($offer['ID'], $_SESSION[$arParams['COMPARE_NAME']][$item['IBLOCK_ID']]['ITEMS']))
 				{
 					if ($key == $item['OFFERS_SELECTED'])
 					{
