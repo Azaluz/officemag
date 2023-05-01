@@ -11,6 +11,9 @@ services:
       - db
     links:
       - db:db
+    networks:
+      - bitrix
+    entrypoint: /usr/local/bin/entrypoint.sh
     container_name: php
 
   nginx:
@@ -26,6 +29,8 @@ services:
       - "443:443"
     depends_on:
       - php
+    networks:
+      - bitrix
     container_name: nginx
 
   db:
@@ -41,4 +46,14 @@ services:
       - "3306:3306"
     volumes:
       - ./db-data/:/var/lib/mysql
+    networks:
+      - bitrix
     container_name: db
+
+networks:
+  bitrix:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.0.0/24
